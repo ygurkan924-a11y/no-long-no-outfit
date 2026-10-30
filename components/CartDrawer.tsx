@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCart, LUXURY_PACKAGING_FEE } from "@/app/CartContext";
 import { useCurrency } from "@/app/CurrencyContext";
+import { PRODUCTS } from "@/data/products";
 
 const FREE_SHIPPING_THRESHOLD = 1500;
 const SHIPPING_FEE = 59;
@@ -98,12 +99,22 @@ export default function CartDrawer() {
               </button>
             </div>
           ) : (
-            items.map((item) => (
-              <div key={item.key} className="flex gap-4 py-4">
-                {/* Görsel */}
-                <div className="flex h-20 w-16 shrink-0 items-center justify-center bg-zinc-900 border border-white/10">
-                  <GarmentThumb color={item.colorHex} />
-                </div>
+            items.map((item) => {
+              const product = PRODUCTS.find((p) => p.id === item.productId);
+              return (
+                <div key={item.key} className="flex gap-4 py-4">
+                  {/* Görsel */}
+                  <div className="relative flex h-20 w-16 shrink-0 items-center justify-center overflow-hidden bg-zinc-900 border border-white/10">
+                    {product?.image ? (
+                      <img
+                        src={product.image}
+                        alt={item.name}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <GarmentThumb color={item.colorHex} />
+                    )}
+                  </div>
 
                 {/* Detaylar */}
                 <div className="flex flex-1 flex-col justify-between min-w-0">
@@ -152,7 +163,8 @@ export default function CartDrawer() {
                   </div>
                 </div>
               </div>
-            ))
+            );
+          })
           )}
         </div>
 

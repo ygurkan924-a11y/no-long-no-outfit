@@ -9,7 +9,6 @@ import { PRODUCTS, CATEGORIES, type Product } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 import SizeGuideModal from "@/components/SizeGuideModal";
 import QuickViewModal from "@/components/QuickViewModal";
-import GarmentVisual from "@/components/GarmentVisual";
 import OutfitBuilder from "@/components/OutfitBuilder";
 import DropCountdown from "@/components/DropCountdown";
 import CommunityGallery from "@/components/CommunityGallery";
@@ -43,8 +42,7 @@ const LOOKBOOK_ITEMS = [
     tag: "NLNO 01 Boxy Tee",
     productId: 1,
     tone: "from-zinc-900 via-neutral-900 to-black",
-    garmentColor: "#18181b",
-    isHoodie: false,
+    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1000&q=80",
     hotspots: [
       {
         name: "NLNO 01 Boxy Tee",
@@ -64,8 +62,7 @@ const LOOKBOOK_ITEMS = [
     tag: "NLNO 05 Zip Hoodie",
     productId: 5,
     tone: "from-neutral-950 via-zinc-900 to-black",
-    garmentColor: "#27272a",
-    isHoodie: true,
+    image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=80",
     hotspots: [
       {
         name: "NLNO 05 Heavy Zip Hoodie",
@@ -85,8 +82,7 @@ const LOOKBOOK_ITEMS = [
     tag: "NLNO 02 Heavy Hoodie",
     productId: 2,
     tone: "from-zinc-950 via-stone-900 to-black",
-    garmentColor: "#09090b",
-    isHoodie: true,
+    image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1000&q=80",
     hotspots: [
       {
         name: "NLNO 02 Heavy Hoodie",
@@ -434,9 +430,17 @@ export default function Home() {
       <main>
         {/* Hero Bölümü */}
         <section className="relative flex min-h-[85vh] items-end overflow-hidden">
-          <div className="animate-slow-zoom absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,#3f3f46_0%,#18181b_45%,#000000_100%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:60px_60px]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+          {/* Editoryal Arka Plan Fotoğrafı */}
+          <div className="absolute inset-0 bg-black">
+            <img
+              src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1920&q=80"
+              alt="NO LONG NO OUTFIT FW26 Kampanya"
+              className="h-full w-full object-cover object-top opacity-30 filter grayscale contrast-125"
+            />
+          </div>
+          <div className="animate-slow-zoom absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(63,63,70,0.4)_0%,rgba(24,24,27,0.7)_45%,#000000_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
 
           <div className="relative mx-auto w-full max-w-7xl px-5 pb-16 sm:px-8 sm:pb-24">
             <p className="animate-fade-up text-xs font-semibold uppercase tracking-[0.4em] text-zinc-400" style={{ animationDelay: "0.1s" }}>
@@ -489,13 +493,13 @@ export default function Home() {
                 <span className="text-xs uppercase tracking-[0.3em] text-zinc-500">Kategoriler</span>
                 <h2 className="mt-1 text-3xl font-black uppercase tracking-tighter sm:text-5xl">Koleksiyonlar</h2>
               </div>
-              <span className="hidden text-xs uppercase tracking-[0.3em] text-zinc-500 sm:block">03 Kategori</span>
+              <span className="hidden text-xs uppercase tracking-[0.3em] text-zinc-500 sm:block">04 Kategori</span>
             </div>
           </Reveal>
 
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {CATEGORIES.map((cat, i) => (
-              <Reveal key={cat.name} delay={i * 120}>
+              <Reveal key={cat.name} delay={i * 100}>
                 <button
                   type="button"
                   onClick={() => {
@@ -503,17 +507,22 @@ export default function Home() {
                     const el = document.getElementById("urunler");
                     if (el) el.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className={`group relative flex aspect-[4/5] w-full text-left items-end overflow-hidden bg-gradient-to-br ${cat.tone}`}
+                  className="group relative flex aspect-[4/5] w-full text-left items-end overflow-hidden border border-white/10 bg-zinc-950 transition-colors hover:border-white/40"
                 >
-                  <div className="absolute inset-0 flex items-center justify-center opacity-10 transition-all duration-700 group-hover:scale-110 group-hover:opacity-20">
-                    <span className="select-none text-[10rem] font-black leading-none">0{i + 1}</span>
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale contrast-110 group-hover:grayscale-0"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-15 transition-all duration-700 group-hover:scale-110 group-hover:opacity-25 pointer-events-none">
+                    <span className="select-none text-[8rem] font-black leading-none">0{i + 1}</span>
                   </div>
-                  <div className="absolute inset-0 border border-white/10 transition-colors group-hover:border-white/40" />
-                  <div className="relative w-full p-6">
-                    <p className="text-xs uppercase tracking-[0.3em] text-zinc-400">{cat.count}</p>
+                  <div className="relative w-full p-6 z-10">
+                    <p className="text-xs font-mono uppercase tracking-[0.3em] text-zinc-300">{cat.count}</p>
                     <div className="mt-2 flex items-center justify-between">
-                      <h3 className="text-2xl font-black uppercase tracking-tight">{cat.name}</h3>
-                      <span className="translate-x-0 text-2xl transition-transform duration-300 group-hover:translate-x-2">→</span>
+                      <h3 className="text-xl font-black uppercase tracking-tight text-white">{cat.name}</h3>
+                      <span className="translate-x-0 text-2xl text-white transition-transform duration-300 group-hover:translate-x-2">→</span>
                     </div>
                   </div>
                 </button>
@@ -629,26 +638,27 @@ export default function Home() {
             <div className="grid gap-6 md:grid-cols-3">
               {LOOKBOOK_ITEMS.map((item, idx) => (
                 <Reveal key={item.look} delay={idx * 150}>
-                  <div className={`group relative flex aspect-[3/4] flex-col justify-between overflow-hidden bg-gradient-to-br ${item.tone} p-6 sm:p-7 border border-white/10 transition-all hover:border-white/40`}>
+                  <div className="group relative flex aspect-[3/4] flex-col justify-between overflow-hidden border border-white/10 bg-zinc-950 p-6 sm:p-7 transition-all hover:border-white/40">
+                    {/* Editoryal Fotoğraf */}
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="absolute inset-0 h-full w-full object-cover filter contrast-105 transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/60" />
+
                     {/* Üst Başlık & Etiket */}
                     <div className="relative z-10 flex items-center justify-between">
-                      <span className="text-xs font-mono font-bold tracking-widest text-zinc-400">
+                      <span className="text-xs font-mono font-bold tracking-widest text-zinc-300">
                         {item.look}
                       </span>
-                      <span className="text-[10px] uppercase tracking-widest border border-white/20 bg-black/40 px-2.5 py-0.5 text-zinc-300">
+                      <span className="text-[10px] uppercase tracking-widest border border-white/30 bg-black/60 backdrop-blur-sm px-2.5 py-0.5 text-white">
                         SHOP THE LOOK
                       </span>
                     </div>
 
-                    {/* Giysi & İnteraktif Hotspot Alanı */}
+                    {/* Hotspot Noktaları */}
                     <div className="relative my-auto flex h-48 sm:h-56 w-full items-center justify-center">
-                      <GarmentVisual
-                        color={item.garmentColor}
-                        isHoodie={item.isHoodie}
-                        scale={0.9}
-                      />
-
-                      {/* Hotspot Noktaları */}
                       {item.hotspots.map((spot) => {
                         const isOpen = activeLookHotspot === spot.productId;
                         return (
@@ -711,11 +721,11 @@ export default function Home() {
                     </div>
 
                     {/* Alt Look Bilgileri */}
-                    <div className="relative z-10 space-y-1.5 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-4">
+                    <div className="relative z-10 space-y-1.5 bg-gradient-to-t from-black/90 via-black/60 to-transparent pt-4">
                       <h3 className="text-xl font-black uppercase tracking-tight text-white group-hover:text-zinc-200">
                         {item.title}
                       </h3>
-                      <p className="text-xs text-zinc-400 leading-relaxed line-clamp-2">
+                      <p className="text-xs text-zinc-300 leading-relaxed line-clamp-2">
                         {item.desc}
                       </p>
 

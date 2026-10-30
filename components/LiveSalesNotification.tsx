@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { PRODUCTS } from "@/data/products";
 
 const RECENT_SALES = [
   {
@@ -82,24 +83,33 @@ export default function LiveSalesNotification() {
 
   if (disabled || !currentSale || !visible) return null;
 
+  const matchedProduct = PRODUCTS.find((p) => p.id === currentSale.productId);
+
   return (
     <aside
       aria-label="Canlı Satış Bildirimi"
       className="fixed bottom-5 left-5 z-40 max-w-sm rounded border border-white/20 bg-zinc-950/95 p-3.5 shadow-2xl backdrop-blur-md transition-all duration-500 ease-out animate-slide-right text-white"
     >
       <div className="flex items-center gap-3">
-        {/* Ürün Minyatür Çizimi */}
+        {/* Ürün Görseli */}
         <div
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-white/10"
-          style={{ backgroundColor: currentSale.color }}
+          className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded border border-white/10 bg-zinc-900"
         >
-          <svg viewBox="0 0 100 100" className="h-6 w-6" aria-hidden="true">
-            <path
-              d="M20 10 L35 4 Q50 14 65 4 L80 10 L95 28 L82 38 L76 32 L76 92 L24 92 L24 32 L18 38 L5 28 Z"
-              fill="#ffffff"
-              opacity="0.3"
+          {matchedProduct?.image ? (
+            <img
+              src={matchedProduct.image}
+              alt={currentSale.product}
+              className="h-full w-full object-cover"
             />
-          </svg>
+          ) : (
+            <svg viewBox="0 0 100 100" className="h-6 w-6" aria-hidden="true">
+              <path
+                d="M20 10 L35 4 Q50 14 65 4 L80 10 L95 28 L82 38 L76 32 L76 92 L24 92 L24 32 L18 38 L5 28 Z"
+                fill="#ffffff"
+                opacity="0.3"
+              />
+            </svg>
+          )}
         </div>
 
         {/* Bilgi */}

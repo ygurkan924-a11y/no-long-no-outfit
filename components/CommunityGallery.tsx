@@ -11,6 +11,7 @@ const COMMUNITY_POSTS = [
     size: "L Beden",
     productName: "NLNO 01 Boxy Tee",
     productId: 1,
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80",
     tone: "from-zinc-900 via-neutral-900 to-black",
   },
   {
@@ -21,6 +22,7 @@ const COMMUNITY_POSTS = [
     size: "XL Beden",
     productName: "NLNO 02 Heavy Hoodie",
     productId: 2,
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
     tone: "from-neutral-950 via-zinc-900 to-black",
   },
   {
@@ -31,6 +33,7 @@ const COMMUNITY_POSTS = [
     size: "M Beden (Oversize)",
     productName: "NLNO 05 Zip Hoodie",
     productId: 5,
+    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80",
     tone: "from-zinc-950 via-stone-900 to-black",
   },
   {
@@ -41,6 +44,7 @@ const COMMUNITY_POSTS = [
     size: "XXL Beden",
     productName: "NLNO 03 Washed Crewneck",
     productId: 3,
+    image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=800&q=80",
     tone: "from-zinc-900 via-stone-950 to-black",
   },
 ];
@@ -67,32 +71,27 @@ export default function CommunityGallery() {
           {COMMUNITY_POSTS.map((post) => (
             <div
               key={post.id}
-              className={`group relative flex aspect-[3/4] flex-col justify-between overflow-hidden bg-gradient-to-br ${post.tone} p-5 border border-white/10 transition-all hover:border-white/40`}
+              className="group relative flex aspect-[3/4] flex-col justify-between overflow-hidden border border-white/10 bg-zinc-950 p-5 transition-all hover:border-white/40"
             >
-              {/* Şehir & Kullanıcı */}
-              <div className="flex items-center justify-between text-[10px] font-mono tracking-wider text-zinc-400">
-                <span>{post.city}</span>
-                <span className="text-zinc-500">{post.handle}</span>
-              </div>
+              {/* Gerçek Topluluk Fotoğrafı */}
+              <img
+                src={post.image}
+                alt={`${post.handle} - ${post.productName}`}
+                className="absolute inset-0 h-full w-full object-cover filter contrast-105 transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/60" />
 
-              {/* Minimalist Sanatsal Silüet Grafiği */}
-              <div className="my-auto flex items-center justify-center opacity-40 transition-opacity group-hover:opacity-90">
-                <svg viewBox="0 0 100 120" className="h-32 w-32" aria-hidden="true">
-                  <circle cx="50" cy="20" r="10" fill="none" stroke="currentColor" strokeWidth="1" />
-                  <path
-                    d="M30 40 L70 40 L80 90 L65 90 L60 115 L40 115 L35 90 L20 90 Z"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                  />
-                </svg>
+              {/* Şehir & Kullanıcı */}
+              <div className="relative z-10 flex items-center justify-between text-[10px] font-mono tracking-wider text-zinc-300">
+                <span className="bg-black/50 px-2 py-0.5 backdrop-blur-sm">{post.city}</span>
+                <span className="text-zinc-400 font-bold">{post.handle}</span>
               </div>
 
               {/* Alt Bilgi & Hover Detayı */}
-              <div className="relative z-10 space-y-1 bg-gradient-to-t from-black via-black/80 to-transparent pt-4">
+              <div className="relative z-10 space-y-1 bg-gradient-to-t from-black/95 via-black/70 to-transparent pt-6">
                 <p className="text-[10px] font-mono text-zinc-400">{post.stats}</p>
                 <p className="text-xs font-bold uppercase text-white truncate">{post.productName}</p>
-                <p className="text-[10px] text-zinc-500 uppercase tracking-widest">{post.size}</p>
+                <p className="text-[10px] text-zinc-400 uppercase tracking-widest">{post.size}</p>
 
                 <div className="pt-2">
                   <Link

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCart } from "../CartContext";
 import { useWishlist } from "../WishlistContext";
 import { useCurrency } from "../CurrencyContext";
+import { PRODUCTS } from "@/data/products";
 
 /* ---------- Ayarlar ---------- */
 
@@ -166,16 +167,26 @@ export default function CartPage() {
           <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_380px] lg:gap-14">
             {/* Ürün listesi */}
             <ul className="divide-y divide-white/10 border-y border-white/10">
-              {items.map((item) => (
-                <li key={item.key} className="flex gap-4 py-6 sm:gap-6">
-                  {/* Görsel */}
-                  <Link
-                    href={`/products/${item.productId}`}
-                    aria-label={item.name}
-                    className="flex aspect-[3/4] w-24 shrink-0 items-center justify-center bg-gradient-to-b from-zinc-800 to-black sm:w-32 border border-white/10"
-                  >
-                    <GarmentThumb color={item.colorHex} />
-                  </Link>
+              {items.map((item) => {
+                const product = PRODUCTS.find((p) => p.id === item.productId);
+                return (
+                  <li key={item.key} className="flex gap-4 py-6 sm:gap-6">
+                    {/* Görsel */}
+                    <Link
+                      href={`/products/${item.productId}`}
+                      aria-label={item.name}
+                      className="relative flex aspect-[3/4] w-24 shrink-0 items-center justify-center overflow-hidden bg-gradient-to-b from-zinc-800 to-black sm:w-32 border border-white/10"
+                    >
+                      {product?.image ? (
+                        <img
+                          src={product.image}
+                          alt={item.name}
+                          className="h-full w-full object-cover transition-transform hover:scale-105"
+                        />
+                      ) : (
+                        <GarmentThumb color={item.colorHex} />
+                      )}
+                    </Link>
 
                   {/* Bilgiler */}
                   <div className="flex min-w-0 flex-1 flex-col justify-between">
@@ -239,7 +250,8 @@ export default function CartPage() {
                     </div>
                   </div>
                 </li>
-              ))}
+              );
+            })}
             </ul>
 
             {/* Sipariş özeti */}

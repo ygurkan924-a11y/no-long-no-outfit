@@ -66,18 +66,26 @@ export default function QuickViewModal({
 
         <div className="grid gap-6 sm:grid-cols-2 sm:gap-8">
           {/* Görsel Alanı */}
-          <div className="relative flex aspect-square items-center justify-center border border-white/10 bg-gradient-to-b from-zinc-900 to-black p-4">
-            <GarmentVisual
-              color={activeColor.hex}
-              isBack={isBack}
-              isHoodie={isHoodie}
-              scale={1.05}
-            />
+          <div className="relative flex aspect-square items-center justify-center border border-white/10 bg-gradient-to-b from-zinc-900 to-black overflow-hidden">
+            {product.image ? (
+              <img
+                src={isBack && product.backImage ? product.backImage : product.image}
+                alt={product.name}
+                className="h-full w-full object-cover object-center"
+              />
+            ) : (
+              <GarmentVisual
+                color={activeColor.hex}
+                isBack={isBack}
+                isHoodie={isHoodie}
+                scale={1.05}
+              />
+            )}
 
             <button
               type="button"
               onClick={() => setIsBack(!isBack)}
-              className="absolute bottom-3 right-3 bg-black/80 border border-white/20 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-zinc-300 hover:text-white hover:border-white transition-colors"
+              className="absolute bottom-3 right-3 bg-black/80 border border-white/20 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-zinc-300 hover:text-white hover:border-white transition-colors z-10"
             >
               {isBack ? "Ön Görünüm" : "Sırt Görünüm"} ⟲
             </button>

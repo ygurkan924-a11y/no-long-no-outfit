@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useCart, LUXURY_PACKAGING_FEE } from "../CartContext";
 import { useCurrency } from "../CurrencyContext";
+import { PRODUCTS } from "@/data/products";
 
 const FREE_SHIPPING_THRESHOLD = 1500;
 const SHIPPING_FEE = 59;
@@ -478,22 +479,33 @@ export default function CheckoutPage() {
 
             {/* Ürün Listesi */}
             <ul className="mt-6 max-h-64 divide-y divide-white/10 overflow-y-auto pr-1">
-              {items.map((item) => (
-                <li key={item.key} className="flex gap-4 py-4">
-                  <div className="flex h-16 w-14 shrink-0 items-center justify-center bg-zinc-900 border border-white/10">
-                    <GarmentThumb color={item.colorHex} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="truncate text-xs font-bold uppercase tracking-wider text-white">{item.name}</p>
-                    <p className="text-[11px] text-zinc-400 uppercase tracking-widest mt-1">
-                      {item.size} · {item.colorName} · {item.quantity} Adet
-                    </p>
-                    <p className="mt-1 text-xs font-semibold text-zinc-300">
-                      {formatPrice(item.price * item.quantity)}
-                    </p>
-                  </div>
-                </li>
-              ))}
+              {items.map((item) => {
+                const product = PRODUCTS.find((p) => p.id === item.productId);
+                return (
+                  <li key={item.key} className="flex gap-4 py-4">
+                    <div className="relative flex h-16 w-14 shrink-0 items-center justify-center overflow-hidden bg-zinc-900 border border-white/10">
+                      {product?.image ? (
+                        <img
+                          src={product.image}
+                          alt={item.name}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <GarmentThumb color={item.colorHex} />
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="truncate text-xs font-bold uppercase tracking-wider text-white">{item.name}</p>
+                      <p className="text-[11px] text-zinc-400 uppercase tracking-widest mt-1">
+                        {item.size} · {item.colorName} · {item.quantity} Adet
+                      </p>
+                      <p className="mt-1 text-xs font-semibold text-zinc-300">
+                        {formatPrice(item.price * item.quantity)}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
 
             {/* Kupon Kodu */}

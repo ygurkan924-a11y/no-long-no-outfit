@@ -246,20 +246,28 @@ export default function ProductView({ id }: { id: string }) {
                 <button
                   key={v.label}
                   onClick={() => setViewIndex(i)}
-                  className={`relative flex aspect-[3/4] w-20 flex-col items-center justify-center border transition-all ${
+                  className={`relative flex aspect-[3/4] w-20 flex-col items-center justify-center overflow-hidden border transition-all ${
                     i === viewIndex
                       ? "border-white bg-zinc-900"
                       : "border-white/10 bg-black hover:border-white/40"
                   }`}
                 >
-                  <div className="h-14 w-14">
-                    <GarmentVisual
-                      color={activeColor.hex}
-                      isBack={v.back}
-                      isHoodie={isHoodie}
+                  {product.image ? (
+                    <img
+                      src={v.back && product.backImage ? product.backImage : product.image}
+                      alt={v.label}
+                      className="h-full w-full object-cover object-center"
                     />
-                  </div>
-                  <span className="text-[9px] font-bold uppercase tracking-widest text-zinc-400 mt-1">
+                  ) : (
+                    <div className="h-14 w-14">
+                      <GarmentVisual
+                        color={activeColor.hex}
+                        isBack={v.back}
+                        isHoodie={isHoodie}
+                      />
+                    </div>
+                  )}
+                  <span className="absolute bottom-1 bg-black/70 px-1 text-[9px] font-bold uppercase tracking-widest text-zinc-300">
                     {v.label}
                   </span>
                 </button>
@@ -271,23 +279,31 @@ export default function ProductView({ id }: { id: string }) {
               className={`relative flex aspect-[4/5] flex-1 items-center justify-center overflow-hidden border border-white/10 bg-gradient-to-b ${activeView.bg}`}
             >
               {product.badge && (
-                <span className="absolute left-4 top-4 z-10 bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-black">
+                <span className="absolute left-4 top-4 z-10 bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-black shadow-lg">
                   {product.badge}
                 </span>
               )}
 
-              <span className="absolute right-4 top-4 z-10 bg-black/60 border border-white/10 px-2.5 py-1 text-[10px] font-mono tracking-widest text-zinc-400">
+              <span className="absolute right-4 top-4 z-10 bg-black/80 border border-white/10 px-2.5 py-1 text-[10px] font-mono tracking-widest text-zinc-300">
                 {product.gsm}
               </span>
 
-              <div className="h-full w-full flex items-center justify-center p-8">
-                <GarmentVisual
-                  color={activeColor.hex}
-                  isBack={activeView.back}
-                  isHoodie={isHoodie}
-                  scale={1.1}
+              {product.image ? (
+                <img
+                  src={activeView.back && product.backImage ? product.backImage : product.image}
+                  alt={product.name}
+                  className="h-full w-full object-cover object-center transition-transform duration-700 hover:scale-105"
                 />
-              </div>
+              ) : (
+                <div className="h-full w-full flex items-center justify-center p-8">
+                  <GarmentVisual
+                    color={activeColor.hex}
+                    isBack={activeView.back}
+                    isHoodie={isHoodie}
+                    scale={1.1}
+                  />
+                </div>
+              )}
 
               {/* Görünüm Değiştir Butonu */}
               <button
@@ -494,11 +510,19 @@ export default function ProductView({ id }: { id: string }) {
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6">
               {complementaryProducts.map((item) => (
                 <div key={item.id} className="border border-white/10 bg-zinc-950 p-4 flex flex-col justify-between">
-                  <div className="relative aspect-square flex items-center justify-center bg-black/60 border border-white/5">
-                    <GarmentVisual
-                      color={item.colors[0]?.hex || item.garment}
-                      isHoodie={item.category === "Hoodie"}
-                    />
+                  <div className="relative aspect-square flex items-center justify-center bg-black/60 border border-white/5 overflow-hidden">
+                    {item.image ? (
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="h-full w-full object-cover object-center transition-transform duration-500 hover:scale-105"
+                      />
+                    ) : (
+                      <GarmentVisual
+                        color={item.colors[0]?.hex || item.garment}
+                        isHoodie={item.category === "Hoodie"}
+                      />
+                    )}
                     <Link href={`/products/${item.id}`} className="absolute inset-0" />
                   </div>
                   <div className="mt-3">

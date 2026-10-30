@@ -4,7 +4,6 @@ import { useState } from "react";
 import { PRODUCTS, SIZES, type Size } from "@/data/products";
 import { useCart } from "@/app/CartContext";
 import { useCurrency } from "@/app/CurrencyContext";
-import GarmentVisual from "./GarmentVisual";
 
 export default function OutfitBuilder() {
   const tops = PRODUCTS.filter((p) => p.category !== "Alt Giyim");
@@ -84,21 +83,28 @@ export default function OutfitBuilder() {
               <span className="text-[11px] font-mono text-zinc-500">{selectedTop.category}</span>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-2 max-h-80 overflow-y-auto pr-1">
+            <div className="grid grid-cols-1 gap-2 max-h-80 overflow-y-auto pr-1">
               {tops.map((top) => (
                 <button
                   key={top.id}
                   type="button"
                   onClick={() => setSelectedTopId(top.id)}
-                  className={`flex flex-col items-start p-3 text-left border transition-all ${
+                  className={`flex items-center gap-3 p-2 text-left border transition-all ${
                     selectedTopId === top.id
                       ? "border-white bg-zinc-900"
                       : "border-white/10 bg-zinc-950/60 hover:border-white/30"
                   }`}
                 >
-                  <p className="text-[11px] font-bold uppercase truncate w-full">{top.name}</p>
-                  <p className="text-[10px] text-zinc-500 mt-0.5">{top.gsm.split(" ")[0]} GSM</p>
-                  <p className="text-xs font-semibold text-zinc-300 mt-2">{formatPrice(top.price)}</p>
+                  <img
+                    src={top.image}
+                    alt={top.name}
+                    className="h-12 w-10 object-cover shrink-0 border border-white/10"
+                  />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[11px] font-bold uppercase truncate">{top.name}</p>
+                    <p className="text-[10px] text-zinc-500">{top.gsm.split(" ")[0]} GSM</p>
+                    <p className="text-xs font-semibold text-zinc-300 mt-0.5">{formatPrice(top.price)}</p>
+                  </div>
                 </button>
               ))}
             </div>
@@ -133,27 +139,24 @@ export default function OutfitBuilder() {
             </span>
 
             {/* Üst Görsel */}
-            <div className="relative h-44 w-44 flex items-center justify-center">
-              <GarmentVisual
-                color={selectedTop.colors[0]?.hex || selectedTop.garment}
-                isHoodie={selectedTop.category === "Hoodie"}
-                scale={0.9}
+            <div className="relative h-44 w-44 flex items-center justify-center overflow-hidden border border-white/10 bg-zinc-900 shadow-xl">
+              <img
+                src={selectedTop.image}
+                alt={selectedTop.name}
+                className="h-full w-full object-cover transition-all duration-300"
               />
             </div>
 
             {/* Ayırıcı Çizgi */}
-            <div className="h-px w-24 bg-white/10 my-2" />
+            <div className="h-px w-24 bg-white/20 my-2" />
 
-            {/* Alt Görsel Simülasyonu */}
-            <div className="relative h-36 w-36 flex items-center justify-center">
-              <svg viewBox="0 0 100 100" className="h-full w-full" aria-hidden="true">
-                <path
-                  d="M20 10 L80 10 L76 90 L56 90 L50 40 L44 90 L24 90 Z"
-                  fill={selectedBottom.colors[0]?.hex || "#18181b"}
-                  stroke="rgba(255,255,255,0.2)"
-                  strokeWidth="1.2"
-                />
-              </svg>
+            {/* Alt Görsel */}
+            <div className="relative h-44 w-44 flex items-center justify-center overflow-hidden border border-white/10 bg-zinc-900 shadow-xl">
+              <img
+                src={selectedBottom.image}
+                alt={selectedBottom.name}
+                className="h-full w-full object-cover transition-all duration-300"
+              />
             </div>
 
             {/* Parça İsimleri Özeti */}
@@ -171,21 +174,28 @@ export default function OutfitBuilder() {
               <span className="text-[11px] font-mono text-zinc-500">{selectedBottom.category}</span>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-2 lg:grid-cols-2">
+            <div className="grid grid-cols-1 gap-2">
               {bottoms.map((bot) => (
                 <button
                   key={bot.id}
                   type="button"
                   onClick={() => setSelectedBottomId(bot.id)}
-                  className={`flex flex-col items-start p-3 text-left border transition-all ${
+                  className={`flex items-center gap-3 p-2 text-left border transition-all ${
                     selectedBottomId === bot.id
                       ? "border-white bg-zinc-900"
                       : "border-white/10 bg-zinc-950/60 hover:border-white/30"
                   }`}
                 >
-                  <p className="text-[11px] font-bold uppercase truncate w-full">{bot.name}</p>
-                  <p className="text-[10px] text-zinc-500 mt-0.5">{bot.gsm.split(" ")[0]} GSM</p>
-                  <p className="text-xs font-semibold text-zinc-300 mt-2">{formatPrice(bot.price)}</p>
+                  <img
+                    src={bot.image}
+                    alt={bot.name}
+                    className="h-12 w-10 object-cover shrink-0 border border-white/10"
+                  />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[11px] font-bold uppercase truncate">{bot.name}</p>
+                    <p className="text-[10px] text-zinc-500">{bot.gsm.split(" ")[0]} GSM</p>
+                    <p className="text-xs font-semibold text-zinc-300 mt-0.5">{formatPrice(bot.price)}</p>
+                  </div>
                 </button>
               ))}
             </div>

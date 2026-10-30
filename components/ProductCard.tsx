@@ -88,13 +88,25 @@ export default function ProductCard({
           </svg>
         </button>
 
-        {/* Giysi Çizimi */}
-        <GarmentVisual
-          color={activeColor.hex}
-          isBack={isHovered}
-          isHoodie={isHoodie}
-          scale={isHovered ? 1.05 : 1}
-        />
+        {/* Gerçek Ürün / Model Fotoğrafı & Vektörel Yedek */}
+        {product.image ? (
+          <div className="relative h-full w-full overflow-hidden">
+            <img
+              src={isHovered && product.backImage ? product.backImage : product.image}
+              alt={product.name}
+              loading="lazy"
+              className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
+          </div>
+        ) : (
+          <GarmentVisual
+            color={activeColor.hex}
+            isBack={isHovered}
+            isHoodie={isHoodie}
+            scale={isHovered ? 1.05 : 1}
+          />
+        )}
 
         {/* Hızlı İncele Butonu (Hover'da Ortada Çıkar) */}
         {onQuickView && (

@@ -122,11 +122,30 @@ export default function WishlistPage() {
           <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-4">
             {favoritedProducts.map((product) => (
               <article key={product.id} className="group relative flex flex-col justify-between">
-                <div className={`relative flex aspect-[3/4] w-full items-center justify-center overflow-hidden bg-gradient-to-b ${product.tone} border border-white/10`}>
-                  <GarmentVisual
-                    color={product.colors[0]?.hex || product.garment}
-                    isHoodie={product.category === "Hoodie"}
-                  />
+                <div className="relative flex aspect-[3/4] w-full items-center justify-center overflow-hidden bg-zinc-950 border border-white/10">
+                  {product.image ? (
+                    <>
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className={`h-full w-full object-cover transition-all duration-700 ${
+                          product.backImage ? "group-hover:opacity-0" : "group-hover:scale-105"
+                        }`}
+                      />
+                      {product.backImage && (
+                        <img
+                          src={product.backImage}
+                          alt={`${product.name} arka görünüm`}
+                          className="absolute inset-0 h-full w-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-105"
+                        />
+                      )}
+                    </>
+                  ) : (
+                    <GarmentVisual
+                      color={product.colors[0]?.hex || product.garment}
+                      isHoodie={product.category === "Hoodie"}
+                    />
+                  )}
 
                   {/* Silme Butonu */}
                   <button

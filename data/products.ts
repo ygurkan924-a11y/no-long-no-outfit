@@ -21,6 +21,8 @@ export type Product = {
   badge?: "YENİ" | "SINIRLI SAYIDA" | "SON PARÇALAR";
   tone: string;
   garment: string;
+  image: string;
+  backImage?: string;
   gsm: string; // Kumaş ağırlığı (lüks streetwear için temel ölçüt)
   fit: string; // Kalıp bilgisi
   description: string;
@@ -36,10 +38,30 @@ export const SIZES = ["S", "M", "L", "XL", "XXL"] as const;
 export type Size = (typeof SIZES)[number];
 
 export const CATEGORIES = [
-  { name: "Oversize Tişört", count: "8 Parça", tone: "from-zinc-900 to-black" },
-  { name: "Hoodie", count: "6 Parça", tone: "from-zinc-800 to-zinc-950" },
-  { name: "Sweatshirt", count: "4 Parça", tone: "from-neutral-900 to-black" },
-  { name: "Alt Giyim", count: "2 Parça", tone: "from-zinc-950 to-neutral-900" },
+  {
+    name: "Oversize Tişört",
+    count: "8 Parça",
+    tone: "from-zinc-900 to-black",
+    image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    name: "Hoodie",
+    count: "6 Parça",
+    tone: "from-zinc-800 to-zinc-950",
+    image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    name: "Sweatshirt",
+    count: "4 Parça",
+    tone: "from-neutral-900 to-black",
+    image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    name: "Alt Giyim",
+    count: "2 Parça",
+    tone: "from-zinc-950 to-neutral-900",
+    image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=80",
+  },
 ] as const;
 
 export const PRODUCTS: Product[] = [
@@ -51,6 +73,8 @@ export const PRODUCTS: Product[] = [
     badge: "YENİ",
     tone: "from-zinc-900 to-black",
     garment: "#e5e5e5",
+    image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80",
+    backImage: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80",
     gsm: "280 GSM Ağır Süprem",
     fit: "Boxy Oversize",
     description:
@@ -98,6 +122,8 @@ export const PRODUCTS: Product[] = [
     badge: "YENİ",
     tone: "from-zinc-800 to-black",
     garment: "#171717",
+    image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80",
+    backImage: "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=800&q=80",
     gsm: "450 GSM Ağır Şardonlu",
     fit: "Drop-Shoulder Döküm",
     description:
@@ -134,6 +160,8 @@ export const PRODUCTS: Product[] = [
     price: 1599,
     tone: "from-neutral-900 to-black",
     garment: "#38383a",
+    image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=800&q=80",
+    backImage: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=800&q=80",
     gsm: "380 GSM Şardonsuz Tok Örgü",
     fit: "Boxy Cut",
     description:
@@ -171,6 +199,8 @@ export const PRODUCTS: Product[] = [
     badge: "SINIRLI SAYIDA",
     tone: "from-zinc-900 to-zinc-950",
     garment: "#f5f5f5",
+    image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=800&q=80",
+    backImage: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80",
     gsm: "280 GSM Süprem",
     fit: "Oversize Fit",
     description:
@@ -207,6 +237,8 @@ export const PRODUCTS: Product[] = [
     price: 2399,
     tone: "from-zinc-900 to-neutral-950",
     garment: "#27272a",
+    image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=800&q=80",
+    backImage: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80",
     gsm: "420 GSM 3 İplik",
     fit: "Boxy Tactical",
     description:
@@ -244,6 +276,8 @@ export const PRODUCTS: Product[] = [
     badge: "SON PARÇALAR",
     tone: "from-neutral-800 to-black",
     garment: "#d4d4d8",
+    image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=800&q=80",
+    backImage: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=800&q=80",
     gsm: "380 GSM",
     fit: "Rahat Kalıp",
     description:
@@ -280,6 +314,8 @@ export const PRODUCTS: Product[] = [
     price: 799,
     tone: "from-zinc-800 to-black",
     garment: "#52525b",
+    image: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=800&q=80",
+    backImage: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=800&q=80",
     gsm: "260 GSM Yıkamalı Penye",
     fit: "Vintage Boxy",
     description:
@@ -316,6 +352,8 @@ export const PRODUCTS: Product[] = [
     price: 1999,
     tone: "from-zinc-900 to-zinc-950",
     garment: "#fafafa",
+    image: "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=800&q=80",
+    backImage: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80",
     gsm: "400 GSM Şardonlu",
     fit: "Oversize",
     description:
@@ -353,6 +391,8 @@ export const PRODUCTS: Product[] = [
     badge: "YENİ",
     tone: "from-zinc-950 to-neutral-900",
     garment: "#18181b",
+    image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=80",
+    backImage: "https://images.unsplash.com/photo-1517445312882-bc9910d016b7?auto=format&fit=crop&w=800&q=80",
     gsm: "400 GSM Şardonlu Pamuk",
     fit: "Wide-Leg Dökümlü",
     description:
@@ -390,6 +430,8 @@ export const PRODUCTS: Product[] = [
     badge: "SINIRLI SAYIDA",
     tone: "from-neutral-900 to-black",
     garment: "#27272a",
+    image: "https://images.unsplash.com/photo-1517445312882-bc9910d016b7?auto=format&fit=crop&w=800&q=80",
+    backImage: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=80",
     gsm: "360 GSM Ağır Kanvas",
     fit: "Relaxed Boxy Cargo",
     description:
